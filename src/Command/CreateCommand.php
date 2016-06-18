@@ -2,7 +2,6 @@
 
 namespace Perform\Cli\Command;
 
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputInterface;
 
@@ -22,7 +21,8 @@ class CreateCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $file = 'app/config.yml';
+        $file = 'web/.htaccess';
+        file_put_contents($file, ($this->get('file_creator')->render($file)));
         $output->writeln(sprintf('Created <info>%s</info>', $file));
     }
 }

@@ -1,11 +1,16 @@
 #!/usr/bin/env php
 <?php
 
-include 'vendor/autoload.php';
+include __DIR__.'/vendor/autoload.php';
 
-use Symfony\Component\Console\Application;
 use Perform\Cli\Command;
+use Perform\Cli\Application;
+use Pimple\Container;
+use Perform\Cli\PerformCliProvider;
 
-$app = new Application('perform', '1');
+$c = new Container();
+$c->register(new PerformCliProvider());
+
+$app = new Application($c);
 $app->add(new Command\CreateCommand());
 $app->run();
