@@ -1,0 +1,11 @@
+#!/usr/bin/env php
+<?php
+
+include 'vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+use Perform\Cli\Command;
+
+$app = new Application('perform', '1');
+$app->add(new Command\CreateCommand());
+$app->run();

@@ -1,0 +1,20 @@
+{
+    "name": "glynnforrest/perform-cli",
+    "description": "Perform cli tool",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Glynn Forrest",
+            "email": "me@glynnforrest.com"
+        }
+    ],
+    "require": {
+        "symfony/console": "^3.1",
+        "twig/twig": "^1.24"
+    },
+    "autoload":{
+        "psr-4": {
+            "Perform\\Cli\\": "src"
+        }
+    }
+}
