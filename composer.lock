@@ -4,9 +4,96 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "022ce03ec25b7e5d791adad59a92107a",
-    "content-hash": "db445db6a8817e28a7ba1edcf29dcc6a",
+    "hash": "2b5349f1f5e3e23be0edc04ce3da29e8",
+    "content-hash": "2e915bd4906176c65826a896e69184b8",
     "packages": [
+        {
+            "name": "glynnforrest/crutches",
+            "version": "0.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/glynnforrest/Crutches.git",
+                "reference": "bf770a909ef57ad51514c5f832be689f5d6c79ce"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/glynnforrest/Crutches/zipball/bf770a909ef57ad51514c5f832be689f5d6c79ce",
+                "reference": "bf770a909ef57ad51514c5f832be689f5d6c79ce",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Crutches\\": "src/Crutches/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Glynn Forrest",
+                    "email": "me@glynnforrest.com"
+                }
+            ],
+            "description": "A PHP utility library",
+            "keywords": [
+                "bitmask",
+                "dotarray",
+                "list",
+                "support",
+                "tool",
+                "utility"
+            ],
+            "time": "2015-02-03 22:14:30"
+        },
+        {
+            "name": "glynnforrest/speedy-config",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/glynnforrest/speedy-config.git",
+                "reference": "46d3761ddba87678af027e0d8757fb95cf0b004f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/glynnforrest/speedy-config/zipball/46d3761ddba87678af027e0d8757fb95cf0b004f",
+                "reference": "46d3761ddba87678af027e0d8757fb95cf0b004f",
+                "shasum": ""
+            },
+            "require": {
+                "glynnforrest/crutches": "^0.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.2",
+                "symfony/yaml": "^3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SpeedyConfig\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Glynn Forrest",
+                    "email": "me@glynnforrest.com"
+                }
+            ],
+            "description": "No-fuss configuration loader, processor and cache",
+            "time": "2016-05-15 02:31:33"
+        },
         {
             "name": "pimple/pimple",
             "version": "v3.0.2",
@@ -237,7 +324,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "glynnforrest/speedy-config": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

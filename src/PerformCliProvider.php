@@ -21,9 +21,17 @@ class PerformCliProvider implements ServiceProviderInterface
             return new \Twig_Loader_Filesystem(__DIR__.'/../templates');
         };
 
+        $c['config'] = function ($c) {
+            return new \SpeedyConfig\Config();
+        };
+
+        $c['twig.extension.config'] = function ($c) {
+            return new ConfigExtension($c['config']);
+        };
+
         $c['twig'] = function ($c) {
             $env = new \Twig_Environment($c['twig.loader'], []);
-            $env->addExtension(new ConfigExtension());
+            $env->addExtension($c['twig.extension.config']);
 
             return $env;
         };
