@@ -4,6 +4,9 @@ namespace Perform\Cli\Command;
 
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputInterface;
+use Perform\Cli\Exception\FileException;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
+use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * CreateCommand
@@ -16,13 +19,28 @@ class CreateCommand extends Command
     {
         $this->setName('create')
             ->setDescription('Create a file in the current app from a template.')
+            ->addArgument(
+                'file',
+                InputArgument::REQUIRED,
+                'The file to create.'
+            )
             ;
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $file = 'web/.htaccess';
-        file_put_contents($file, ($this->get('file_creator')->render($file)));
-        $output->writeln(sprintf('Created <info>%s</info>', $file));
+        $file = $input->getArgument('file');
+        $createdMessage = sprintf('Created <info>%s</info>', $file);
+        try {
+            $this->get('file_creator')->create($file);
+            $output->writeln($createdMessage);
+        } catch (FileException $e) {
+            $question = new ConfirmationQuestion("<info>$file</info> exists. Overwrite? ", false);
+            $overwrite = $this->getHelper('question')->ask($input, $output, $question);
+            if ($overwrite) {
+                $this->get('file_creator')->forceCreate($file);
+                $output->writeln($createdMessage);
+            }
+        }
     }
 }
