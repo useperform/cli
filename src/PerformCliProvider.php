@@ -26,7 +26,12 @@ class PerformCliProvider implements ServiceProviderInterface
         };
 
         $c['twig.extension.config'] = function ($c) {
-            return new ConfigExtension($c['config']);
+            $ext = new ConfigExtension($c['config']);
+            $ext->registerDefault('app.name.lowercase', function() {
+                return strtolower(basename(getcwd()));
+            });
+
+            return $ext;
         };
 
         $c['twig'] = function ($c) {

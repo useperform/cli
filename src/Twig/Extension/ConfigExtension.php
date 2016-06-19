@@ -19,6 +19,7 @@ class ConfigExtension extends \Twig_Extension
     protected $input;
     protected $output;
     protected $helper;
+    protected $defaults = [];
 
     public function __construct(Config $config)
     {
@@ -32,6 +33,11 @@ class ConfigExtension extends \Twig_Extension
         $this->helper = $helper;
     }
 
+    public function registerDefault($key, $function)
+    {
+        $this->defaults[$key] = $function;
+    }
+
     public function getFunctions()
     {
         return [
@@ -42,8 +48,12 @@ class ConfigExtension extends \Twig_Extension
     public function config($key)
     {
         if (null === $value = $this->config->get($key)) {
-            $question = new Question(sprintf('<info>%s</info>: ', $key));
-            //suggest a sensible default (e.g. snakecase of a camelcase name)
+            if (isset($this->defaults[$key])) {
+                $default = $this->defaults[$key]();
+                $question = new Question(sprintf('<info>%s</info> (%s): ', $key, $default), $default);
+            } else {
+                $question = new Question(sprintf('<info>%s</info>: ', $key));
+            }
             $value = $this->helper->ask($this->input, $this->output, $question);
             $this->config->set($key, $value);
         }
