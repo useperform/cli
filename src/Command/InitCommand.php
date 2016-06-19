@@ -25,6 +25,7 @@ class InitCommand extends Command
     {
         $files = [
             'composer.json',
+            '.gitignore',
             'Makefile',
 
             'app/autoload.php',
