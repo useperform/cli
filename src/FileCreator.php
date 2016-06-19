@@ -22,11 +22,15 @@ class FileCreator
             throw new FileException($file.' exists.');
         }
 
-        file_put_contents($file, $this->render($file));
+        return $this->forceCreate($file);
     }
 
     public function forceCreate($file)
     {
+        if (!file_exists(dirname($file))) {
+            mkdir(dirname($file), 0755, true);
+        }
+
         file_put_contents($file, $this->render($file));
     }
 
