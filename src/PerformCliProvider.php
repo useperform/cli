@@ -45,7 +45,10 @@ class PerformCliProvider implements ServiceProviderInterface
         };
 
         $c['file_creator'] = function ($c) {
-            return new FileCreator($c['twig']);
+            $creator = new FileCreator($c['twig']);
+            $creator->registerChmod('bin/console', 0755);
+
+            return $creator;
         };
     }
 }

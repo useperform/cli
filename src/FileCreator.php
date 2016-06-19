@@ -11,9 +11,16 @@ use Perform\Cli\Exception\FileException;
  **/
 class FileCreator
 {
+    protected $chmods = [];
+
     public function __construct(\Twig_Environment $twig)
     {
         $this->twig = $twig;
+    }
+
+    public function registerChmod($file, $mode)
+    {
+        $this->chmods[$file] = $mode;
     }
 
     public function create($file)
@@ -32,6 +39,9 @@ class FileCreator
         }
 
         file_put_contents($file, $this->render($file));
+        if (isset($this->chmods[$file])) {
+            chmod($file, $this->chmods[$file]);
+        }
     }
 
     public function render($file)
