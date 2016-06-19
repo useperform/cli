@@ -30,7 +30,10 @@ class PerformCliProvider implements ServiceProviderInterface
         };
 
         $c['twig'] = function ($c) {
-            $env = new \Twig_Environment($c['twig.loader'], []);
+            $options = [
+                'strict_variables' => true,
+            ];
+            $env = new \Twig_Environment($c['twig.loader'], $options);
             $env->addExtension($c['twig.extension.config']);
 
             return $env;
