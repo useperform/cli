@@ -27,11 +27,17 @@ class InitCommand extends Command
             'composer.json',
             'Makefile',
 
+            'app/autoload.php',
             'app/AppCache.php',
             'app/AppKernel.php',
             'app/config/config.yml',
+            'app/config/config_dev.yml',
+            'app/config/parameters.yml.dist',
+            'app/config/security.yml',
             'bin/console',
             'web/.htaccess',
+            'web/app.php',
+            'web/app_dev.php',
         ];
         foreach ($files as $file) {
             $this->createFile($input, $output, $file);

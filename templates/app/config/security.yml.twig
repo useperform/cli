@@ -1,0 +1,28 @@
+security:
+    encoders:
+        Admin\Base\Entity\User:
+            algorithm: bcrypt
+    providers:
+        admin_bundles:
+            entity:
+                class: Admin\Base\Entity\User
+                property: email
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            pattern: ^/admin
+            anonymous: ~
+            form_login:
+                login_path: admin_base_login
+                check_path: admin_base_login
+                csrf_token_generator: security.csrf.token_manager
+            logout:
+                path: admin_base_logout
+                target: /
+
+    access_control:
+        - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/, role: ROLE_USER }
