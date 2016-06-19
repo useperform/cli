@@ -6,37 +6,44 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Perform\Cli\Exception\FileException;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
-use Symfony\Component\Console\Input\InputArgument;
 
 /**
- * CreateCommand
+ * InitCommand.
  *
  * @author Glynn Forrest <me@glynnforrest.com>
  **/
-class CreateCommand extends Command
+class InitCommand extends Command
 {
     protected function configure()
     {
-        $this->setName('create')
-            ->setDescription('Create a file in the current app from a template')
-            ->addArgument(
-                'file',
-                InputArgument::REQUIRED,
-                'The file to create.'
-            )
+        $this->setName('init')
+            ->setDescription('Create a new perform application')
             ;
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $file = $input->getArgument('file');
+        $files = [
+            'composer.json',
+            'app/AppKernel.php',
+            'app/AppCache.php',
+            'app/config/config.yml',
+            'web/.htaccess',
+        ];
+        foreach ($files as $file) {
+            $this->createFile($input, $output, $file);
+        }
+    }
+
+    protected function createFile(InputInterface $input, OutputInterface $output, $file)
+    {
         $createdMessage = sprintf('Created <info>%s</info>', $file);
         try {
             $this->get('file_creator')->create($file);
             $output->writeln($createdMessage);
         } catch (FileException $e) {
             $question = new ConfirmationQuestion("<info>$file</info> exists. Overwrite? ", false);
-            //add another option - view a diff by creating a temp file and comparing
+            //add another option - view a diff
             $overwrite = $this->getHelper('question')->ask($input, $output, $question);
             if ($overwrite) {
                 $this->get('file_creator')->forceCreate($file);

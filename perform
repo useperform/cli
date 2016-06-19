@@ -13,4 +13,5 @@ $c->register(new PerformCliProvider());
 
 $app = new Application($c);
 $app->add(new Command\CreateCommand());
+$app->add(new Command\InitCommand());
 $app->run();
