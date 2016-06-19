@@ -1,0 +1,40 @@
+admin_base_login:
+    resource: "@AdminBaseBundle/Resources/config/routing_security.yml"
+    prefix: /admin
+
+admin_base:
+    resource: "@AdminBaseBundle/Controller/"
+    type:     annotation
+    prefix: /admin
+
+admin_base_user:
+    resource: "@AdminBaseBundle/Resources/config/routing_user.yml"
+    prefix: /admin/users
+
+admin_media:
+    resource: "@AdminMediaBundle/Resources/config/routing.yml"
+    prefix: /admin/media
+
+admin_blog:
+    resource: "@AdminBlogBundle/Resources/config/routing.yml"
+    prefix: /admin/news
+
+admin_team:
+    resource: "@AdminTeamBundle/Resources/config/routing.yml"
+    prefix: /admin/members
+
+admin_contact:
+    resource: "@AdminContactBundle/Resources/config/routing.yml"
+    prefix: /admin/contact
+
+admin_events:
+    resource: "@AdminEventsBundle/Resources/config/routing.yml"
+    prefix: /admin/events
+
+admin_mailing_list:
+    resource: "@AdminMailingListBundle/Resources/config/routing.yml"
+    prefix: /admin/mailing-list
+
+admin_twitter:
+    resource: "@AdminTwitterBundle/Resources/config/routing.yml"
+    prefix: /_twitter

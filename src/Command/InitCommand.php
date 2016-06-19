@@ -33,6 +33,8 @@ class InitCommand extends Command
             'app/config/config.yml',
             'app/config/config_dev.yml',
             'app/config/parameters.yml.dist',
+            'app/config/routing.yml',
+            'app/config/routing_dev.yml',
             'app/config/security.yml',
             'bin/console',
             'web/.htaccess',
