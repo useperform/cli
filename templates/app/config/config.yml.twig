@@ -1,0 +1,86 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+
+parameters:
+    locale: en
+
+framework:
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      true
+    templating:
+        engines: ['twig']
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        handler_id:  null
+    fragments:       ~
+    http_method_override: true
+    assets: ~
+
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    form_themes:
+        - 'bootstrap_3_layout.html.twig'
+
+doctrine:
+    dbal:
+        driver:   pdo_mysql
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+
+doctrine_cache:
+    providers:
+        default:
+            namespace: {{config('app.name.lowercase')}}
+            file_system: []
+
+stof_doctrine_extensions:
+    orm:
+        default:
+            timestampable: true
+            sluggable: true
+
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    spool:     { type: memory }
+
+oneup_flysystem:
+    adapters:
+        main:
+            local:
+                directory: "%kernel.root_dir%/../web/uploads"
+    filesystems:
+        main:
+            adapter: main
+
+admin_base:
+    panels:
+        left: []
+        right: []
+    menu:
+        order: []
+
+admin_media:
+    plugins:
+        - image
+        - pdf
+        - other
