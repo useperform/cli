@@ -25,9 +25,12 @@ class InitCommand extends Command
     {
         $files = [
             'composer.json',
-            'app/AppKernel.php',
+            'Makefile',
+
             'app/AppCache.php',
+            'app/AppKernel.php',
             'app/config/config.yml',
+            'bin/console',
             'web/.htaccess',
         ];
         foreach ($files as $file) {
