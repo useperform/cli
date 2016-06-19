@@ -2,10 +2,17 @@ admin_base_login:
     resource: "@AdminBaseBundle/Resources/config/routing_security.yml"
     prefix: /admin
 
-admin_base:
-    resource: "@AdminBaseBundle/Controller/"
-    type:     annotation
+admin_base_index:
+    resource: "@AdminBaseBundle/Resources/config/routing_index.yml"
     prefix: /admin
+
+admin_base_dashboard:
+    resource: "@AdminBaseBundle/Resources/config/routing_dashboard.yml"
+    prefix: /admin/dashboard
+
+admin_base_settings:
+    resource: "@AdminBaseBundle/Resources/config/routing_settings.yml"
+    prefix: /admin/settings
 
 admin_base_user:
     resource: "@AdminBaseBundle/Resources/config/routing_user.yml"
