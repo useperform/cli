@@ -45,6 +45,9 @@ class InitCommand extends Command
             'web/.htaccess',
             'web/app.php',
             'web/app_dev.php',
+            'web/assets/scss/app.scss',
+            'web/assets/scss/variables.scss',
+            'web/assets/scss/vendors.scss',
         ];
         foreach ($files as $file) {
             $this->createFile($input, $output, $file);
