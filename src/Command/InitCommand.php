@@ -24,9 +24,13 @@ class InitCommand extends Command
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $files = [
-            'composer.json',
+            '.bowerrc',
             '.gitignore',
             'Makefile',
+            'bower.json',
+            'composer.json',
+            'gulpfile.js',
+            'package.json',
 
             'app/autoload.php',
             'app/AppCache.php',
