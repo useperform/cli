@@ -6,6 +6,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Perform\Cli\Exception\FileException;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
+use Symfony\Component\Console\Input\InputOption;
 
 /**
  * InitCommand.
@@ -18,6 +19,7 @@ class InitCommand extends Command
     {
         $this->setName('init')
             ->setDescription('Create a new perform application')
+            ->addOption('skip-existing', 's', InputOption::VALUE_NONE, 'Don\'t prompt to overwrite files that already exist.')
             ;
     }
 
@@ -61,6 +63,10 @@ class InitCommand extends Command
             $this->get('file_creator')->create($file);
             $output->writeln($createdMessage);
         } catch (FileException $e) {
+            if ($input->getOption('skip-existing')) {
+                return;
+            }
+
             $question = new ConfirmationQuestion("<info>$file</info> exists. Overwrite? ", false);
             //add another option - view a diff
             $overwrite = $this->getHelper('question')->ask($input, $output, $question);
