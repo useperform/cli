@@ -10,9 +10,11 @@ install:
 
 web_user:
 	sudo chown -R www-data:www-data var/
+	sudo chown -R www-data:www-data web/uploads/
 
 cli_user:
 	sudo chown -R glynn var/
+	sudo chown -R glynn web/uploads/
 
 deploy_staging:
 	make cli_user
