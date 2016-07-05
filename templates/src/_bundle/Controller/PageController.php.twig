@@ -1,0 +1,25 @@
+<?php
+
+namespace {{bundle_namespace}}\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Request;
+
+/**
+ * PageController
+ *
+ * @author Glynn Forrest <me@glynnforrest.com>
+ **/
+class PageController
+{
+    /**
+     * @Route("/")
+     * @Template()
+     */
+    public function homeAction()
+    {
+        return [];
+    }
+}
