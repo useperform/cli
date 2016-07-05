@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Perform\Cli\Exception\FileException;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Question\Question;
 
 /**
  * InitCommand.
@@ -59,6 +60,24 @@ class InitCommand extends Command
         ];
         foreach ($files as $file) {
             $this->createFile($input, $output, $file);
+        }
+
+        $this->createNewBundle($input, $output);
+    }
+
+    protected function createNewBundle(InputInterface $input, OutputInterface $output)
+    {
+        $config = $this->get('twig.extension.config');
+        $default = ucfirst($config->config('app.name.lowercase')).'/AppBundle';
+        $question = new Question("Bundle name (<info>$default</info>): ", $default);
+        $bundleName = $this->getHelper('question')->ask($input, $output, $question);
+        $bundleName = trim($bundleName, '/').'/';
+        $files = [
+            'Controller/PageController.php',
+        ];
+
+        foreach ($files as $file) {
+            $this->createFile($input, $output, 'src/'.$bundleName.$file);
         }
     }
 
