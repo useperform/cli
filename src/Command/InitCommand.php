@@ -74,8 +74,11 @@ class InitCommand extends Command
         $bundleName = trim($bundleName, '/').'/';
         $files = [
             'Controller/PageController.php',
+            'Resources/views/base.html.twig',
+            'Resources/views/nav.html.twig',
         ];
 
+        $this->createFile($input, $output, 'src/'.$bundleName.str_replace('/', '', $bundleName).'.php');
         foreach ($files as $file) {
             $this->createFile($input, $output, 'src/'.$bundleName.$file);
         }
