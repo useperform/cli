@@ -40,6 +40,7 @@ class FileCreator
         if (preg_match('`src/(.*Bundle)/`', $file, $matches)) {
             $template = preg_replace('`src/.*Bundle/`', 'src/_bundle/', $file);
             $vars['bundle_namespace'] = str_replace('/', '\\', $matches[1]);
+            $vars['bundle_namespace_twig'] = str_replace('/', '', $matches[1]);
         }
 
         if (!file_exists(dirname($file))) {
