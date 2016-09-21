@@ -18,7 +18,7 @@ class SymlinkCommand extends Command
         $this->setName('symlink')
             ->setDescription('Symlink perform bundles in vendor/ to a local checkout')
             ->addOption('directory', '', InputOption::VALUE_REQUIRED,
-                        'The location of the local checkout', '/home/vagrant/code/projects/admin-bundles/')
+                        'The location of the local checkout', '/home/vagrant/perform/perform-bundles')
             ->addOption('reset', '', InputOption::VALUE_NONE, 'Remove the symlink')
             ;
     }
@@ -27,17 +27,17 @@ class SymlinkCommand extends Command
     {
         $source = realpath($input->getOption('directory'));
         if (!is_dir($source)) {
-            throw new \InvalidArgumentException(sprintf('Source directory "%s" does not exist', $source));
+            throw new \InvalidArgumentException(sprintf('Source directory "%s" does not exist', $source === false ? $input->getOption('directory') : $source));
         }
 
         if ($input->getOption('reset')) {
             return $this->reset($output);
         }
 
-        $target = './vendor/glynnforrest/admin-bundles';
+        $target = './vendor/glynnforrest/perform-bundles';
 
         if (is_dir($target) && !is_link($target)) {
-            rename($target, './vendor/glynnforrest/_admin-bundles');
+            rename($target, './vendor/glynnforrest/_perform-bundles');
         }
         @unlink($target);
         symlink($source, $target);
@@ -46,14 +46,14 @@ class SymlinkCommand extends Command
 
     protected function reset(OutputInterface $output)
     {
-        $target = './vendor/glynnforrest/admin-bundles';
-        $resetDir = './vendor/glynnforrest/_admin-bundles';
+        $target = './vendor/glynnforrest/perform-bundles';
+        $resetDir = './vendor/glynnforrest/_perform-bundles';
 
         if (!is_link($target)) {
             return;
         }
         if (!is_dir($resetDir)) {
-            throw new \Exception(sprintf('Required directory <info>%s</info> was not found.', $resetDir));
+            throw new \Exception(sprintf('Required directory %s was not found.', $resetDir));
         }
         unlink($target);
         rename($resetDir, $target);

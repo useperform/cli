@@ -1,11 +1,11 @@
 security:
     encoders:
-        Admin\Base\Entity\User:
+        Perform\BaseBundle\Entity\User:
             algorithm: bcrypt
     providers:
-        admin_bundles:
+        perform_bundles:
             entity:
-                class: Admin\Base\Entity\User
+                class: Perform\BaseBundle\Entity\User
                 property: email
 
     firewalls:
@@ -16,11 +16,11 @@ security:
             pattern: ^/admin
             anonymous: ~
             form_login:
-                login_path: admin_base_login
-                check_path: admin_base_login
+                login_path: perform_base_login
+                check_path: perform_base_login
                 csrf_token_generator: security.csrf.token_manager
             logout:
-                path: admin_base_logout
+                path: perform_base_logout
                 target: /
 
     access_control:

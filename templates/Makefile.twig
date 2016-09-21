@@ -28,15 +28,15 @@ deploy_prod:
 	make web_user
 
 vendor:
-	(cd vendor/glynnforrest/admin-bundles/src/Base && npm install --no-progress)
-	(cd vendor/glynnforrest/admin-bundles/src/Base && bower install)
-	(cd vendor/glynnforrest/admin-bundles/src/Base && grunt sass)
-	(cd vendor/glynnforrest/admin-bundles/src/MediaBundle && bower install)
+	(cd vendor/glynnforrest/perform-bundles/src/BaseBundle && npm install --no-progress)
+	(cd vendor/glynnforrest/perform-bundles/src/BaseBundle && bower install)
+	(cd vendor/glynnforrest/perform-bundles/src/BaseBundle && grunt sass)
+	(cd vendor/glynnforrest/perform-bundles/src/MediaBundle && bower install)
 
 symlink:
-	rm -rf vendor/glynnforrest/admin-bundles
+	rm -rf vendor/glynnforrest/perform-bundles
 	mkdir -p vendor/glynnforrest
-	ln -s ~/code/projects/admin-bundles/ vendor/glynnforrest/admin-bundles
+	ln -s ~/code/projects/perform-bundles/ vendor/glynnforrest/perform-bundles
 
 remove_symlink:
-	rm -f vendor/glynnforrest/admin-bundles
+	rm -f vendor/glynnforrest/perform-bundles
