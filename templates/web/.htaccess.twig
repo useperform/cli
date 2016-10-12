@@ -53,17 +53,7 @@ DirectoryIndex app.php
     RewriteCond %{REQUEST_FILENAME} -f
     RewriteRule ^ - [L]
 
-    #prod at{{config('environments.prod.url')}}
-    RewriteCond %{SERVER_NAME} {{config('environments.prod.url')}}$
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^(.*)$ app.php [QSA,L]
-
-    #staging at {{config('environments.staging.url')}}
-    RewriteCond %{SERVER_NAME} {{config('environments.staging.url')}}$
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^(.*)$ app_staging.php [QSA,L]
-
-    #dev at {{config('environments.dev.url')}}
+    # dev at {{config('environments.dev.url')}}
     RewriteCond %{SERVER_NAME} {{config('environments.dev.url')}}$
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.*)$ app_dev.php [QSA,L]
