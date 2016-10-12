@@ -16,27 +16,11 @@ cli_user:
 	sudo chown -R glynn var/
 	sudo chown -R glynn web/uploads/
 
-deploy_staging:
+deploy:
 	make cli_user
-	./bin/console cache:clear --env=staging
-	./bin/console doctrine:schema:update --env=staging --force --dump-sql --complete
-	make web_user
-
-deploy_prod:
-	make cli_user
+	make install
+	rm -r var/cache/
 	./bin/console cache:clear --env=prod
+	./bin/console doctrine:migrations:migrate --env=prod --no-interaction
+	./bin/console perform:install --env=prod
 	make web_user
-
-vendor:
-	(cd vendor/glynnforrest/perform-bundles/src/BaseBundle && npm install --no-progress)
-	(cd vendor/glynnforrest/perform-bundles/src/BaseBundle && bower install)
-	(cd vendor/glynnforrest/perform-bundles/src/BaseBundle && grunt sass)
-	(cd vendor/glynnforrest/perform-bundles/src/MediaBundle && bower install)
-
-symlink:
-	rm -rf vendor/glynnforrest/perform-bundles
-	mkdir -p vendor/glynnforrest
-	ln -s ~/code/projects/perform-bundles/ vendor/glynnforrest/perform-bundles
-
-remove_symlink:
-	rm -f vendor/glynnforrest/perform-bundles
