@@ -45,6 +45,7 @@ class InitCommand extends Command
             'app/config/routing.yml',
             'app/config/routing_dev.yml',
             'app/config/security.yml',
+            'app/Resources/PerformCmsBundle/views/scripts.html.twig',
             'bin/console',
             'var/cache/.gitkeep',
             'var/logs/.gitkeep',
