@@ -23,4 +23,5 @@ deploy:
 	./bin/console cache:clear --env=prod
 	./bin/console doctrine:migrations:migrate --env=prod --no-interaction
 	./bin/console perform:install --env=prod
+	./bin/console assets:install --env=prod --symlink
 	make web_user

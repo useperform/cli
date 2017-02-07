@@ -23,7 +23,8 @@ framework:
         handler_id:  null
     fragments:       ~
     http_method_override: true
-    assets: ~
+    assets:
+        version_strategy: perform_base.asset_strategy
 
 twig:
     debug:            "%kernel.debug%"
