@@ -32,6 +32,7 @@ class InitCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
+        $output->writeln('<info>Creating application files</info>');
         $files = [
             '.bowerrc',
             '.gitignore',
@@ -64,38 +65,21 @@ class InitCommand extends Command
             'web/assets/scss/vendors.scss',
         ];
         foreach ($files as $file) {
-            $this->createFile($input, $output, $file);
+            $this->createFile($output, $file, $input->getOption('skip-existing'));
         }
 
-        $this->createNewBundle($input, $output);
+        $this->maybeCreateBundle($input, $output);
     }
 
-    protected function createNewBundle(InputInterface $input, OutputInterface $output)
+    protected function maybeCreateBundle(InputInterface $input, OutputInterface $output)
     {
-        $config = $this->get('twig.extension.config');
-        $default = ucfirst($config->config('app.name.lowercase')).'/AppBundle';
-        $question = new Question("Bundle name (<info>$default</info>): ", $default);
-        $bundleName = $this->getHelper('question')->ask($input, $output, $question);
-        $bundleName = trim($bundleName, '/').'/';
-        $files = [
-            'Controller/PageController.php',
-            'Resources/views/base.html.twig',
-            'Resources/views/nav.html.twig',
-        ];
-
-        $this->createFile($input, $output, 'src/'.$bundleName.str_replace('/', '', $bundleName).'.php');
-        foreach ($files as $file) {
-            $this->createFile($input, $output, 'src/'.$bundleName.$file);
+        $question = new ConfirmationQuestion("Create a new bundle for this app? ", false);
+        $create = $this->getHelper('question')->ask($input, $output, $question);
+        if (!$create) {
+            return;
         }
-    }
 
-    protected function createFile(InputInterface $input, OutputInterface $output, $file)
-    {
-        $command = $this->getApplication()->find('create:file');
-        $args = new ArrayInput([
-            'file' => $file,
-            '--skip-existing' => $input->getOption('skip-existing'),
-        ]);
-        $command->run($args, $output);
+        $command = $this->getApplication()->find('create:bundle');
+        $command->run(new ArrayInput([]), $output);
     }
 }
