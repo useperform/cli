@@ -1,23 +1,24 @@
 <?php
 
-namespace Perform\Cli\Command;
+namespace Perform\Cli\Command\Create;
 
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputArgument;
 use Perform\Cli\Exception\FileException;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
-use Symfony\Component\Console\Input\InputArgument;
+use Perform\Cli\Command\Command;
 
 /**
- * CreateCommand
+ * CreateFileCommand.
  *
  * @author Glynn Forrest <me@glynnforrest.com>
  **/
-class CreateCommand extends Command
+class CreateFileCommand extends Command
 {
     protected function configure()
     {
-        $this->setName('create')
+        $this->setName('create:file')
             ->setDescription('Create a file in the current app from a template')
             ->addArgument(
                 'file',
