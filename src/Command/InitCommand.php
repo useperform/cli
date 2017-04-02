@@ -8,6 +8,7 @@ use Perform\Cli\Exception\FileException;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Question\Question;
+use Symfony\Component\Console\Input\ArrayInput;
 
 /**
  * InitCommand.
@@ -19,8 +20,13 @@ class InitCommand extends Command
     protected function configure()
     {
         $this->setName('init')
-            ->setDescription('Create a new perform application')
-            ->addOption('skip-existing', 's', InputOption::VALUE_NONE, 'Don\'t prompt to overwrite files that already exist.')
+            ->setDescription('Create a new perform application in the current directory')
+            ->addOption(
+                'skip-existing',
+                's',
+                InputOption::VALUE_NONE,
+                'Don\'t prompt to overwrite files that already exist.'
+            )
             ;
     }
 
@@ -85,22 +91,11 @@ class InitCommand extends Command
 
     protected function createFile(InputInterface $input, OutputInterface $output, $file)
     {
-        $createdMessage = sprintf('Created <info>%s</info>', $file);
-        try {
-            $this->get('file_creator')->create($file);
-            $output->writeln($createdMessage);
-        } catch (FileException $e) {
-            if ($input->getOption('skip-existing')) {
-                return;
-            }
-
-            $question = new ConfirmationQuestion("<info>$file</info> exists. Overwrite? ", false);
-            //add another option - view a diff
-            $overwrite = $this->getHelper('question')->ask($input, $output, $question);
-            if ($overwrite) {
-                $this->get('file_creator')->forceCreate($file);
-                $output->writeln($createdMessage);
-            }
-        }
+        $command = $this->getApplication()->find('create:file');
+        $args = new ArrayInput([
+            'file' => $file,
+            '--skip-existing' => $input->getOption('skip-existing'),
+        ]);
+        $command->run($args, $output);
     }
 }
