@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Perform\Cli\Exception\FileException;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Perform\Cli\Command\Command;
+use Symfony\Component\Console\Input\InputOption;
 
 /**
  * CreateFileCommand.
@@ -25,6 +26,12 @@ class CreateFileCommand extends Command
                 InputArgument::REQUIRED,
                 'The file to create.'
             )
+            ->addOption(
+                'skip-existing',
+                's',
+                InputOption::VALUE_NONE,
+                'Don\'t prompt to overwrite files that already exist.'
+            )
             ;
     }
 
@@ -36,6 +43,10 @@ class CreateFileCommand extends Command
             $this->get('file_creator')->create($file);
             $output->writeln($createdMessage);
         } catch (FileException $e) {
+            if ($input->getOption('skip-existing')) {
+                return;
+            }
+
             $question = new ConfirmationQuestion("<info>$file</info> exists. Overwrite? ", false);
             //add another option - view a diff by creating a temp file and comparing
             $overwrite = $this->getHelper('question')->ask($input, $output, $question);
