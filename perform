@@ -13,6 +13,7 @@ $c->register(new PerformCliProvider());
 
 $app = new Application($c);
 $app->add(new Command\Create\CreateFileCommand());
+$app->add(new Command\Create\CreateBundleCommand());
 $app->add(new Command\InitCommand());
 $app->add(new Command\SymlinkCommand());
 $app->run();
