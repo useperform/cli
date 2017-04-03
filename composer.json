@@ -1,5 +1,5 @@
 {
-    "name": "glynnforrest/perform-cli",
+    "name": "perform/cli",
     "description": "Perform cli tool",
     "license": "proprietary",
     "authors": [
@@ -14,9 +14,12 @@
         "pimple/pimple": "^3.0",
         "glynnforrest/speedy-config": "dev-master"
     },
-    "autoload":{
+    "autoload": {
         "psr-4": {
             "Perform\\Cli\\": "src"
         }
-    }
+    },
+    "bin": [
+        "perform"
+    ]
 }
