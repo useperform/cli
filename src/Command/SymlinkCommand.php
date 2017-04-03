@@ -34,10 +34,10 @@ class SymlinkCommand extends Command
             return $this->reset($output);
         }
 
-        $target = './vendor/glynnforrest/perform-bundles';
+        $target = './vendor/perform/perform-bundles';
 
         if (is_dir($target) && !is_link($target)) {
-            rename($target, './vendor/glynnforrest/_perform-bundles');
+            rename($target, './vendor/perform/_perform-bundles');
         }
         @unlink($target);
         symlink($source, $target);
@@ -46,8 +46,8 @@ class SymlinkCommand extends Command
 
     protected function reset(OutputInterface $output)
     {
-        $target = './vendor/glynnforrest/perform-bundles';
-        $resetDir = './vendor/glynnforrest/_perform-bundles';
+        $target = './vendor/perform/perform-bundles';
+        $resetDir = './vendor/perform/_perform-bundles';
 
         if (!is_link($target)) {
             return;
