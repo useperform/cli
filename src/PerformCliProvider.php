@@ -4,9 +4,10 @@ namespace Perform\Cli;
 
 use Pimple\ServiceProviderInterface;
 use Pimple\Container;
-use Symfony\Component\Yaml\Yaml;
-use Perform\Cli\FileCreator;
 use Perform\Cli\Twig\Extension\ConfigExtension;
+use SpeedyConfig\Config;
+use SpeedyConfig\ConfigBuilder;
+use SpeedyConfig\Loader\YamlLoader;
 
 /**
  * PerformCliProvider.
@@ -21,13 +22,28 @@ class PerformCliProvider implements ServiceProviderInterface
             return new \Twig_Loader_Filesystem(__DIR__.'/../templates');
         };
 
+        $c['config.loader'] = function ($c) {
+            return new YamlLoader($c);
+        };
+
+        $c['config.builder'] = function ($c) {
+            $builder = new ConfigBuilder($c['config.loader']);
+            $home = isset($_SERVER['HOME']) ? $_SERVER['HOME'] : null;
+            if ($home) {
+                $builder->addOptionalResource($home.'/.config/perform/perform.yml');
+            }
+            $builder->addOptionalResource(getcwd().'/.perform.yml');
+
+            return $builder;
+        };
+
         $c['config'] = function ($c) {
-            return new \SpeedyConfig\Config();
+            return $c['config.builder']->getConfig();
         };
 
         $c['twig.extension.config'] = function ($c) {
             $ext = new ConfigExtension($c['config']);
-            $ext->registerDefault('app.name.lowercase', function() {
+            $ext->registerDefault('app.name.lowercase', function () {
                 return strtolower(basename(getcwd()));
             });
 
