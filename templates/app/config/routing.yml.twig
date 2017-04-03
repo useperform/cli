@@ -18,30 +18,6 @@ perform_base_user:
     resource: "@PerformBaseBundle/Resources/config/routing_user.yml"
     prefix: /admin/users
 
-perform_media:
-    resource: "@PerformMediaBundle/Resources/config/routing.yml"
-    prefix: /admin/media
-
-perform_blog:
-    resource: "@PerformBlogBundle/Resources/config/routing.yml"
-    prefix: /admin/news
-
-perform_team:
-    resource: "@PerformTeamBundle/Resources/config/routing.yml"
-    prefix: /admin/members
-
-perform_contact:
-    resource: "@PerformContactBundle/Resources/config/routing.yml"
-    prefix: /admin/contact
-
-perform_events:
-    resource: "@PerformEventsBundle/Resources/config/routing.yml"
-    prefix: /admin/events
-
-perform_mailing_list:
-    resource: "@PerformMailingListBundle/Resources/config/routing.yml"
-    prefix: /admin/mailing-list
-
-perform_twitter:
-    resource: "@PerformTwitterBundle/Resources/config/routing.yml"
-    prefix: /_twitter
+perform_base_action:
+    resource: "@PerformBaseBundle/Resources/config/routing_action.yml"
+    prefix: /admin/_action

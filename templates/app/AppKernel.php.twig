@@ -18,25 +18,14 @@ class AppKernel extends Kernel
             #doctrine
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
-            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
 
             #other third party
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new Oneup\FlysystemBundle\OneupFlysystemBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
 
             #perform
             new Perform\BaseBundle\PerformBaseBundle(),
-            new Perform\TeamBundle\PerformTeamBundle(),
-            new Perform\NotificationBundle\PerformNotificationBundle(),
-            new Perform\ContactBundle\PerformContactBundle(),
-            new Perform\TwitterBundle\PerformTwitterBundle(),
-            new Perform\BlogBundle\PerformBlogBundle(),
-            new Perform\MediaBundle\PerformMediaBundle(),
-            new Perform\EventsBundle\PerformEventsBundle(),
-            new Perform\MailingListBundle\PerformMailingListBundle(),
-            new Perform\AnalyticsBundle\PerformAnalyticsBundle(),
 
             #app
         ];

@@ -65,30 +65,9 @@ swiftmailer:
     password:  "%mailer_password%"
     spool:     { type: memory }
 
-oneup_flysystem:
-    adapters:
-        main:
-            local:
-                directory: "%kernel.root_dir%/../web/uploads"
-    filesystems:
-        main:
-            adapter: main
-
 perform_base:
     panels:
         left: []
         right: []
     menu:
         order: []
-
-perform_media:
-    plugins:
-        - audio
-        - image
-        - pdf
-        - other
-
-perform_analytics:
-    vendors:
-        - google
-    enabled: "%perform_analytics.enabled%"
