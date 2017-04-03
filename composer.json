@@ -9,10 +9,11 @@
         }
     ],
     "require": {
-        "symfony/console": "^3.1",
-        "twig/twig": "^1.24",
+        "glynnforrest/speedy-config": "dev-master",
         "pimple/pimple": "^3.0",
-        "glynnforrest/speedy-config": "dev-master"
+        "symfony/console": "^3.2",
+        "symfony/yaml": "^3.2",
+        "twig/twig": "^1.24"
     },
     "autoload": {
         "psr-4": {
