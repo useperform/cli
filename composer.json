@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "glynnforrest/speedy-config": "dev-master",
+        "glynnforrest/speedy-config": "^0.1.0",
         "pimple/pimple": "^3.0",
         "symfony/console": "^3.2",
         "symfony/yaml": "^3.2",
