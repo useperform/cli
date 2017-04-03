@@ -1,7 +1,18 @@
 #!/usr/bin/env php
 <?php
 
-include __DIR__.'/vendor/autoload.php';
+$paths = [
+    '/vendor/autoload.php',
+    '/../vendor/autoload.php',
+    '/../../autoload.php',
+];
+
+foreach ($paths as $path) {
+    if (file_exists(__DIR__.$path)) {
+        require __DIR__.$path;
+        break;
+    }
+}
 
 use Perform\Cli\Command;
 use Perform\Cli\Application;
