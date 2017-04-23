@@ -41,8 +41,8 @@ class SetupCommand extends Command
             $this->runProc($output, './bin/console perform-dev:create:bundle');
         }
 
-        $output->writeln('Installing perform...');
-        $this->runProc($output, './bin/console perform:install');
+        $output->writeln('Downloading assets for dashboard...');
+        $this->runProc($output, './bin/console perform:install --only assets');
     }
 
     protected function confirm(InputInterface $input, OutputInterface $output, $question, $defaultYes = true)
