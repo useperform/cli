@@ -4,11 +4,8 @@ namespace Perform\Cli\Command;
 
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputInterface;
-use Perform\Cli\Exception\FileException;
-use Symfony\Component\Console\Question\ConfirmationQuestion;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Process\Process;
 
 /**
  * InitCommand.
@@ -26,6 +23,13 @@ class InitCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        //composer create-project
+        $project = 'perform/project-foundation';
+        $output->writeln(["Downloading $project...", '']);
+        $proc = new Process("composer create-project --stability dev --no-scripts --no-interaction $project .");
+        $proc->setTty(true);
+        $this->getHelper('process')->mustRun($output, $proc);
+
+        $cmd = $this->getApplication()->find('setup');
+        $cmd->run(new ArrayInput([]), $output);
     }
 }
