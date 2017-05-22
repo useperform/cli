@@ -25,10 +25,11 @@ class SetupCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->validateCurrentDirectory();
         $this->projectDetails($input, $output);
         $this->incenteevParameters($input, $output);
-        //substitute vars in config.yml
-        //remove files from base project
+        //substitute vars in config.yml and parameters.yml
+        //remove files from project foundation
 
         if ($this->confirm($input, $output, 'Add additional Perform Bundles?')) {
             $this->runProc($output, './bin/console perform-dev:add-bundle');
@@ -41,7 +42,7 @@ class SetupCommand extends Command
             $this->runProc($output, './bin/console perform-dev:create:bundle');
         }
 
-        $output->writeln('Downloading assets for dashboard...');
+        $output->writeln('Downloading assets for the dashboard...');
         $this->runProc($output, './bin/console perform:install --only assets');
     }
 
@@ -57,6 +58,13 @@ class SetupCommand extends Command
         $proc = new Process($cmd);
         $proc->setTty(true);
         $this->getHelper('process')->mustRun($output, $proc);
+    }
+
+    protected function validateCurrentDirectory()
+    {
+        if (!file_exists('./bin/console')) {
+            throw new \Exception(sprintf('The current directory "%s" doesn\'t seem to be a Perform application.', getcwd()));
+        }
     }
 
     protected function projectDetails(InputInterface $input, OutputInterface $output)
