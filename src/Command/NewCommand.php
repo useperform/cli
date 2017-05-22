@@ -20,6 +20,16 @@ class NewCommand extends Command
         $this->setName('new')
             ->setDescription('Create and configure a new perform application.')
             ->addArgument('directory', InputArgument::REQUIRED, 'The directory to create the application inside')
+            ->setHelp(<<<EOF
+Create a new application in <info>~/projects/super-app</info>, creating the directory if required:
+  <info>%command.full_name% ~/projects/super-app</info>
+
+Create a new application in the current directory:
+  <info>%command.full_name% .</info>
+
+This command will fail if the given directory is not empty.
+EOF
+            )
             ;
     }
 
