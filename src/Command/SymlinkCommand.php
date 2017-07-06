@@ -24,8 +24,8 @@ class SymlinkCommand extends Command
             ->addArgument('packages', InputArgument::IS_ARRAY, 'The packages to symlink')
             ->addOption('directory', '', InputOption::VALUE_REQUIRED,
                         'The location of the local checkout', '/home/vagrant/perform/perform-bundles')
+            ->addOption('link', '', InputOption::VALUE_NONE, 'Set the symlink')
             ->addOption('reset', '', InputOption::VALUE_NONE, 'Remove the symlink')
-            ->addOption('show', '', InputOption::VALUE_NONE, 'Only show the current symlinked packages')
             ;
     }
 
@@ -33,7 +33,8 @@ class SymlinkCommand extends Command
     {
         $this->showLinks($output);
 
-        if ($input->getOption('show')) {
+        if (!$input->getOption('link') && !$input->getOption('reset')) {
+            $output->writeln('Add --link to set the symlink, or --reset to remove.');
             return;
         }
 
