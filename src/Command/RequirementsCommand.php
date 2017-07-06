@@ -54,7 +54,9 @@ class RequirementsCommand extends Command
             return;
         }
 
-        $output->writeln(sprintf('<fg=yellow>%s</> recommendations.', count($recommended)));
+        $output->writeln(sprintf('<fg=yellow>%s</> %s.',
+                                 count($recommended),
+                                 count($recommended) === 1 ? 'recommendation' : 'recommendations'));
         $output->writeln('This system can run Perform, but you should consider the recommendations to use it optimally.');
     }
 
