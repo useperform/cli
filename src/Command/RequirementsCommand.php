@@ -22,6 +22,11 @@ class RequirementsCommand extends Command
     {
         $errors = $this->checkRequired($output);
 
+        $sqlErrors = $this->checkSql($output);
+        if (!empty($sqlErrors)) {
+            $errors = array_merge($errors, $sqlErrors);
+        }
+
         if (!empty($errors)) {
             $this->printRequiredFailures($output, $errors);
         }
@@ -77,7 +82,7 @@ class RequirementsCommand extends Command
         if (empty($failures)) {
             $output->writeln(['<fg=green>PASS</>', '']);
 
-            return;
+            return [];
         }
         $output->writeln(['<fg=red>FAIL</>', '']);
 
@@ -112,6 +117,33 @@ class RequirementsCommand extends Command
                 '    - '.$req->getFix(),
             ]);
         }
+    }
+
+    protected function checkSql(OutputInterface $output)
+    {
+        $output->writeln(['', 'Checking database capabilities...', '']);
+        $available = [];
+
+        foreach (['pdo_pgsql', 'pdo_mysql', 'pdo_sqlite'] as $ext) {
+            $req = Requirement::extension($ext);
+            $output->write($ext.': ');
+            if ($req->check()) {
+                $output->writeln('<fg=green>Yes</>');
+                $available[] = $ext;
+                continue;
+            }
+            $output->writeln('<fg=yellow>No</>');
+        }
+        $output->writeln('');
+
+        if (!empty($available)) {
+            $output->writeln(['<fg=green>PASS</>', '']);
+
+            return [];
+        }
+        $output->writeln(['<fg=red>FAIL</>', '']);
+
+        return [new Requirement(null, 'There is no suitable database extension installed.', 'Install a database extension such as pdo_pgsql, pdo_mysql, pdo_sqlite.')];
     }
 
     protected function checkRecommended(OutputInterface $output)
