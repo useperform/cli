@@ -11,8 +11,6 @@ use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Helper\Table;
 
 /**
- * SymlinkCommand.
- *
  * @author Glynn Forrest <me@glynnforrest.com>
  **/
 class SymlinkCommand extends Command
@@ -22,8 +20,7 @@ class SymlinkCommand extends Command
         $this->setName('symlink')
             ->setDescription('Symlink perform packages in vendor/ to a local checkout')
             ->addArgument('packages', InputArgument::IS_ARRAY, 'The packages to symlink')
-            ->addOption('directory', '', InputOption::VALUE_REQUIRED,
-                        'The location of the local checkout', '/home/vagrant/perform/perform-bundles')
+            ->addOption('directory', '', InputOption::VALUE_REQUIRED, 'The location of the local checkout')
             ->addOption('link', '', InputOption::VALUE_NONE, 'Set the symlink')
             ->addOption('reset', '', InputOption::VALUE_NONE, 'Remove the symlink')
             ;
@@ -38,7 +35,11 @@ class SymlinkCommand extends Command
             return;
         }
 
-        $source = realpath($input->getOption('directory'));
+        $localSource = $input->getOption('directory') ?: $this->get('config')->get('local_checkout');
+        if (!$localSource) {
+            throw new \InvalidArgumentException('No source directory specified. Either use the --directory option or add define a value for "local_checkout" in the configuration file.');
+        }
+        $source = realpath($localSource);
         if (!is_dir($source)) {
             throw new \InvalidArgumentException(sprintf('Source directory "%s" does not exist', $source === false ? $input->getOption('directory') : $source));
         }
