@@ -24,6 +24,7 @@ $c->register(new PerformCliProvider());
 
 $app = new Application($c);
 $app->add(new Command\ConfigCommand());
+$app->add(new Command\DocsCommand());
 $app->add(new Command\NewCommand());
 $app->add(new Command\RequirementsCommand());
 $app->add(new Command\SetupCommand());
