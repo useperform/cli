@@ -9,12 +9,21 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Helper\Table;
+use SpeedyConfig\Config;
 
 /**
  * @author Glynn Forrest <me@glynnforrest.com>
  **/
 class SymlinkCommand extends Command
 {
+    protected $config;
+
+    public function __construct(Config $config)
+    {
+        parent::__construct();
+        $this->config = $config;
+    }
+
     protected function configure()
     {
         $this->setName('symlink')
@@ -35,7 +44,7 @@ class SymlinkCommand extends Command
             return;
         }
 
-        $localSource = $input->getOption('directory') ?: $this->get('config')->get('local_checkout');
+        $localSource = $input->getOption('directory') ?: $this->config->get('local_checkout');
         if (!$localSource) {
             throw new \InvalidArgumentException('No source directory specified. Either use the --directory option or add define a value for "local_checkout" in the configuration file.');
         }

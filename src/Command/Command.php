@@ -9,7 +9,7 @@ use Symfony\Component\Console\Command\Command as BaseCommand;
  *
  * @author Glynn Forrest <me@glynnforrest.com>
  **/
-class Command extends BaseCommand
+abstract class Command extends BaseCommand
 {
     protected function getContainer()
     {

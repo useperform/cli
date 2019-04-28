@@ -14,18 +14,9 @@ foreach ($paths as $path) {
     }
 }
 
-use Perform\Cli\Command;
-use Perform\Cli\Application;
 use Pimple\Container;
 use Perform\Cli\PerformCliProvider;
 
 $c = new Container();
 $c->register(new PerformCliProvider());
-
-$app = new Application($c);
-$app->add(new Command\ConfigCommand());
-$app->add(new Command\NewCommand());
-$app->add(new Command\RequirementsCommand());
-$app->add(new Command\SetupCommand());
-$app->add(new Command\SymlinkCommand());
-$app->run();
+$c['app']->run();

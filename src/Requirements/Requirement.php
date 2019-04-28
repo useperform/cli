@@ -26,7 +26,7 @@ class Requirement
             return extension_loaded($extension);
         };
         $error = sprintf('The %s extension is not loaded.', $extension);
-        $fix = sprintf('Install and enabled this extension using your system\'s package manager.');
+        $fix = sprintf('Install and enable this extension using your system\'s package manager.');
 
         return new static($checker, $error, $fix);
     }
